@@ -3,7 +3,6 @@ import { createClient } from '@supabase/supabase-js'
 import * as XLSX from 'xlsx'
 import './App.css'
 
-// 🔑 Supabase Configuration
 const SUPABASE_URL = 'https://iyjcraipxoehifpqijug.supabase.co'
 const SUPABASE_KEY = 'sb_publishable_QIz8ugW0CVo5-PR9ItcMoA_qlwHElUw'
 
@@ -55,7 +54,6 @@ export default function App() {
       }
     } catch (err) {
       console.error('Kamera error:', err)
-      alert('Gagal akses kamera. Pastikan izin kamera diberikan.')
     }
   }
 
@@ -92,7 +90,7 @@ export default function App() {
     else {
       setPesan('Berhasil! Langsung login...')
       const { data } = await supabase.auth.signInWithPassword({ email, password })
-      if (data.user) {
+      if (data?.user) {
         await supabase.from('teachers').upsert({ id: data.user.id, email, nama: email.split('@')[0] })
       }
     }
@@ -244,10 +242,8 @@ export default function App() {
         pts[0].x, pts[0].y, destW, destH,
         0, 0, newW, newH
       )
-
       return outCanvas
     }
-
     return sourceCanvas
   }
 
